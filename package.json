@@ -1,0 +1,19 @@
+{
+  "name": "todo",
+  "version": "0.0.1",
+  "description": "My Cool Todo App",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AndrewLeving/2022-class.git"
+  },
+  "author": "Andrew Leving",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AndrewLeving/2022-class/issues"
+  },
+  "homepage": "https://github.com/AndrewLeving/2022-class#readme"
+}
