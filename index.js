@@ -2,6 +2,11 @@
 const express = require('express')
 const app = express()
 
+app.use(express.json());
+
+//pull in db
+const persist = require("./persist");
+
 // put in command line flags
 const flags = require("flags");
 flags.defineNumber("port", 3000, "Port for the http server to listen to.");
@@ -14,30 +19,40 @@ const dotenv = require('dotenv');
 const port = flags.get("port") || process.env.PORT || 4000;
 
 //set up server paths and handlers
-app.get("/todo", (req, res) => {
-    res.send("<h1>GET TODO</h1>");
+app.get("/todo/:id", (req, res) => {
+    const id = req.params.id;
+    const todo = persist.getTodo(id);
+    res.json(todo);
 });
 
 app.get("/todos", (req, res) => {
-    res.send("<h1>GET TODOS</h1>");
+    const todos = persist.getTodos();
+    res.json(todos);
 });
 
 app.post("/todo", (req, res) => {
-    res.send("<h1>POST</h1>");
+    const todo = persist.addTodo(req.body);
+    res.json(todo);
 });
 
-app.delete("/todo", (req, res) => {
-    res.send("<h1>DELETE</h1>");
+app.delete("/todo/:id", (req, res) => {
+    const id = req.params.id;
+    const todo = persist.deleteTodo(id);
+    res.json(todo);
 });
 
-app.put("/todo", (req, res) => {
-    res.send("<h1>PUT</h1>");
+app.put("/todo/:id", (req, res) => {
+    const id = req.params.id;
+    const todo = persist.putTodo(req.body, id);
+    res.json(todo);
 });
 
-app.patch("/todo", (req, res) => {
-    res.send("<h1>PATCH</h1>");
+app.patch("/todo/:id", (req, res) => {
+    const id = req.params.id;
+    const todo = persist.patchTodo(req.body, id);
+    res.json(todo);
 });
 
-app.listen(3000, () => {
+app.listen(port, () => {
     console.log(`Server is running on port ${port} `);
 });
